@@ -1,0 +1,9 @@
+lex.yy.c
+simple.tab.*
+*.o
+simple
+
+.git/
+.gitignore
+
+Readme.md
