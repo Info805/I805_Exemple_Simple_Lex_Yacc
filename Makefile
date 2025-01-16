@@ -1,22 +1,21 @@
-.PHONY: all clean 
-GENERATED_LEX=lex.yy.c
-GENERATED_BISON=simple.tab.c simple.tab.h
-GENERATED=${GENERATED_BISON} ${GENERATED_LEX} simple *.o
 LDFLAGS=
 
-all : simple
+.PHONY: all clean
+.PRECIOUS: %.tab.c %.yy.c %.tab.h
 
-${GENERATED_LEX}: simple.l
-	lex simple.l
+all: simple.exe
 
-${GENERATED_BISON}: simple.y
-	bison -d simple.y
+%.yy.c: %.l
+	lex -o $@ $<
 
-lex.yy.o: lex.yy.c simple.tab.h
-	cc -c -o lex.yy.o lex.yy.c
+%.tab.c %.tab.h: %.y
+	bison -d $<
 
-simple: simple.tab.o lex.yy.o
-	cc -o simple $(LDFLAGS) simple.tab.o lex.yy.o 
+%.yy.o: %.yy.c %.tab.h
+	cc -c -o $@ $<
 
-clean: 
-	rm -f ${GENERATED} 
+%.exe: %.tab.o %.yy.o
+	cc -o $@ $(LDFLAGS) $^
+
+clean:
+	rm -f *.exe *.o *.tab.* *.yy.c 
