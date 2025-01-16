@@ -4,11 +4,10 @@ WORKDIR /src/
 COPY . /src/
 RUN make LDFLAGS=-static
 
-FROM debian:stable-slim as simple
-COPY --from=build /src/simple /usr/bin/simple
-CMD ["/usr/bin/simple"]
+FROM debian:stable-slim AS simple
+COPY --from=build /src/simple.exe /usr/bin/simple.exe
+CMD ["/usr/bin/simple.exe"]
 
-
-FROM scratch as small
-COPY --from=build /src/simple /simple
-CMD ["/simple"]
+FROM scratch AS small
+COPY --from=build /src/simple.exe /simple.exe
+CMD ["/simple.exe"]

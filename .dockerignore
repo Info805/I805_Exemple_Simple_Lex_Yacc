@@ -1,9 +1,16 @@
-lex.yy.c
-simple.tab.*
+*.yy.c
+*.tab.*
 *.o
-simple
+*.exe
 
 .git/
 .gitignore
+
+.vscode/
+.devcontainer/
+.editorconfig
+
+Dockerfile
+.dockerignore
 
 Readme.md
