@@ -30,7 +30,11 @@ point      [.?!;]
 %%
 /* code c additionnel */
 int main(int argc, char* argv[]){
+    if (argc > 1){
+        yyin = fopen(argv[1], "r");
+    } else {
     yyin = stdin;
+    }
     int res = yyparse();
     return res;
 }
